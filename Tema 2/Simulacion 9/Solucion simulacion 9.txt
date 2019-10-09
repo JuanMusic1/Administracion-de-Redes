@@ -1,0 +1,29 @@
+T1: Para cada router
+    en
+    erase startup-config
+    reload
+    (poner NO)
+
+    en
+    conf ter
+    hostname R1
+    no ip domain-lookup
+    enable secret clase
+    banner motd c Hola soy un mensaje c
+    
+    line console 0
+    password redes
+    login
+    exit
+
+    int fa0/0
+    ip address IP RESPECTIVA
+    no shutdown
+
+    int s2/0
+    ip address IP RESPECTIVA
+    no shutdown
+    clock rate 64000 SOLO A R2
+    end
+
+    copy ru start

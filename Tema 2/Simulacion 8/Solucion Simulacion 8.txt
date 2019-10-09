@@ -1,0 +1,66 @@
+T1: Armar la topologia
+
+T2: en
+    erase startup-config
+    reload
+    (poner NO)
+
+T3: en
+    conf ter
+    hostname R1
+    no ip domain-lookup
+    enable secret clase
+    banner motd c Hola soy un mensaje c
+    
+    line console 0
+    password redes
+    login
+    exit
+
+    int fa0/0
+    ip address 192.168.1.1 255.255.255.0
+    no shutdown
+
+    int s2/0
+    ip address 192.168.2.1 255.255.255.0
+    no shutdown
+    clock rate 64000
+    end
+
+    copy ru start
+
+T4: en
+    conf ter
+    hostname R2
+    no ip domain-lookup
+    enable secret clase
+    banner motd c Hola soy un mensaje c
+    
+    line console 0
+    password redes
+    login
+    exit
+
+    int s2/0
+    ip address 192.168.2.2 255.255.255.0
+    no shutdown
+
+    int fa0/0
+    ip address 192.168.3.1 255.255.255.0
+    no shutdown
+    end
+
+    copy ru start
+
+T5: Configurar los PC
+
+T6: en R1
+    show ip route
+    show ip interface brief
+
+R:/ 1. Hay dos rutas
+    2. Hay dos rutas    
+    3. shutdown
+    4. ahora se muestra una rutas
+    5. No, porque solo se muestra las rutas que estan conectadas directamente
+    6. no shutdown
