@@ -1,0 +1,11 @@
+T1: Copiar Sim9 y llamarla Sim10 para ahorrar toda la carreta
+
+T2: en
+    show running-config
+    show ip route
+
+T3: en R3
+    no ip route 172.16.1.0 255.255.255.0 S3/0
+    no ip route 172.16.2.0 255.255.255.0 S3/0
+    no ip route 172.16.3.0 255.255.255.0 S3/0
+    ip route 172.16.0.0 255.255.252.0 s3/0 #Ruta estatica sumarizada

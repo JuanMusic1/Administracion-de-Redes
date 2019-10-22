@@ -1,0 +1,57 @@
+RIP
+0-127 A
+128-191 B
+192-223 C
+224-239 D
+240-255 E
+T1:
+    en
+    conf ter
+    hostname R TAL
+    no ip domain-lookup
+    enable secret clase
+    banner motd c Hola soy un mensaje c
+
+    line console 0
+    password redes
+    login
+    exit
+
+    line vty 0 4
+    password redes
+    login
+    exit
+
+    copy run start
+T2:
+    (Conf interfaces de R1 R2 y R3)
+    R1 tiene clock hacia R2
+    R2 tiene clock hacia R3
+
+T3: Para R1
+    en
+    router rip
+    network 192.168.1.0 Clase C
+    network 192.168.2.0
+
+    copy run start
+
+    Para R2
+    router rip
+    network 192.168.2.0
+    network 192.168.3.0
+    network 192.168.4.0
+    end
+
+    copy run start
+    
+    Para R3
+    router rip
+    network 192.168.4.0
+    network 192.168.5.0
+    end
+
+    copy run start
+
+T4:
+    show ip route

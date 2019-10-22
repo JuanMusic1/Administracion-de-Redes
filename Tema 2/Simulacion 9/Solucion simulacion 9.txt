@@ -6,12 +6,17 @@ T1: Para cada router
 
     en
     conf ter
-    hostname R1
+    hostname R1 / R2 / R3
     no ip domain-lookup
     enable secret clase
     banner motd c Hola soy un mensaje c
     
     line console 0
+    password redes
+    login
+    exit
+
+    line vty 0 4
     password redes
     login
     exit
@@ -27,3 +32,12 @@ T1: Para cada router
     end
 
     copy ru start
+
+T2: 
+    show ip route
+    show ip interface brief
+
+T3: Ni idea jaja salu2
+
+T4: 
+    ip route IP_SUBRED MASK_SUBRED INTERFAZ_SALIDA
