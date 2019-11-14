@@ -1,0 +1,128 @@
+Tarea 1: Hacer topologia y configuracion
+
+PARA ROUTER 1:  
+en
+conf ter
+hostname R1
+no ip domain-lookup
+banner motd "Mensaje del dia"
+enable password clase
+line console 0
+password redes
+login
+line vty 0 4
+password redes
+login
+interface fa0/0
+ip address 10.1.1.254 255.255.255.0
+no shutdown
+interface s2/0
+ip address 10.1.0.1 255.255.255.252
+clock rate 64000
+no shutdown
+exit
+router ospf 1
+passive-interface fa0/0
+network 10.1.1.0 0.0.0.255 area 0
+network 10.1.0.0 0.0.0.3 area 0
+end
+copy run start
+
+PARA ROUTER 2:
+en
+conf ter
+hostname R2
+no ip domain-lookup
+banner motd "Mensaje del dia"
+enable password clase
+line console 0
+password redes
+login
+line vty 0 4
+password redes
+login
+interface s2/0
+ip address 10.1.0.2 255.255.255.252
+no shutdown
+interface s3/0
+ip address 10.3.0.1 255.255.255.252
+clock rate 64000
+no shutdown
+exit
+router ospf 1
+network 10.3.0.0 0.0.0.3 area 0
+network 10.1.0.0 0.0.0.3 area 0
+
+end
+copy run start
+
+PARA ROUTER 3:
+en
+conf ter
+hostname R3
+no ip domain-lookup
+banner motd "Mensaje del dia"
+enable password clase
+line console 0
+password redes
+login
+line vty 0 4
+password redes
+login
+interface fa0/0
+ip address 10.3.1.254 255.255.255.0
+no shutdown
+interface s3/0
+ip address 10.3.0.2 255.255.255.252
+no shutdown
+router ospf 1
+network 10.3.0.0 0.0.0.3 area 0
+network 10.3.1.0 0.0.0.255 area 0
+end
+copy run start
+
+TAREA 2: ACL estandar
+R1:
+en
+conf ter
+ip access-list standard VTY-Local
+permit 10.1.1.0 0.0.0.255
+deny any
+line vty 0 4
+access-class VTY-Local in
+end
+copy run start
+
+R3:
+en
+conf ter
+ip access-list standard VTY-Local
+permit 10.3.1.0 0.0.0.255
+deny any
+line vty 0 4
+access-class VTY-Local in
+end
+copy run start
+
+TAREA 3:
+
+R2:
+en
+conf ter
+ip access-list extended block1
+deny icmp 10.1.1.0 0.0.0.255 10.3.1.0 0.0.0.255
+permit ip any any
+interface s2/0
+ip access-group block1 in
+exit
+ip access-list extended block2
+deny icmp 10.3.1.0 0.0.0.255 10.1.1.0 0.0.0.255
+permit ip any any
+interface s3/0
+ip access-group block2 in
+end
+copy run start
+
+
+
+
